@@ -1,4 +1,4 @@
-Library: D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileRally\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+Library: C:\Users\Pacos\OneDrive\Escritorio\Universidad\2ºCuatrimestre\Entornos_Multijugador\PracAlba\MissileRally\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --platform=Windows
 --backend=burst-llvm-14
 --target=X64_SSE2
@@ -8,10 +8,10 @@ Library: D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileR
 --float-precision=Standard
 --linker-options=PdbAltPath="EntornosMultijugador2024_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileRally\Temp\Burst
---key-folder=D:/unity hub/2022.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
---decode-folder=D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileRally\Library\Burst
---output=D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileRally\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+--temp-folder=C:\Users\Pacos\OneDrive\Escritorio\Universidad\2ºCuatrimestre\Entornos_Multijugador\PracAlba\MissileRally\Temp\Burst
+--key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
+--decode-folder=C:\Users\Pacos\OneDrive\Escritorio\Universidad\2ºCuatrimestre\Entornos_Multijugador\PracAlba\MissileRally\Library\Burst
+--output=C:\Users\Pacos\OneDrive\Escritorio\Universidad\2ºCuatrimestre\Entornos_Multijugador\PracAlba\MissileRally\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
@@ -101,10 +101,10 @@ Library: D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileR
 --float-precision=Standard
 --linker-options=PdbAltPath="EntornosMultijugador2024_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileRally\Temp\Burst
---key-folder=D:/unity hub/2022.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
---decode-folder=D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileRally\Library\Burst
---output=D:\uni\3ºDDV\ENTORNOS MULTIJUGADOR\PRACTICA\MissileRallyPROFE\MissileRally\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+--temp-folder=C:\Users\Pacos\OneDrive\Escritorio\Universidad\2ºCuatrimestre\Entornos_Multijugador\PracAlba\MissileRally\Temp\Burst
+--key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
+--decode-folder=C:\Users\Pacos\OneDrive\Escritorio\Universidad\2ºCuatrimestre\Entornos_Multijugador\PracAlba\MissileRally\Library\Burst
+--output=C:\Users\Pacos\OneDrive\Escritorio\Universidad\2ºCuatrimestre\Entornos_Multijugador\PracAlba\MissileRally\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10

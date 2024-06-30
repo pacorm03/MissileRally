@@ -9,7 +9,7 @@ public class CarController : MonoBehaviour
     [Header("Movement")] public List<AxleInfo> axleInfos;
     [SerializeField] private float forwardMotorTorque = 100000;
     [SerializeField] private float backwardMotorTorque = 50000;
-    [SerializeField] private float maxSteeringAngle = 15;
+    [SerializeField] public float maxSteeringAngle = 15;
     [SerializeField] private float engineBrake = 1e+12f;
     [SerializeField] private float footBrake = 1e+24f;
     [SerializeField] private float topSpeed = 200f;
@@ -27,7 +27,7 @@ public class CarController : MonoBehaviour
     private float _steerHelper = 0.8f;
 
 
-    private float _currentSpeed = 0;
+    public float _currentSpeed = 0;
 
     //para poder mostrar la velocidad por pantalla
     private float Speed
