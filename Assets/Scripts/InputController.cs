@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
+using TMPro;  
 
 public class InputController : NetworkBehaviour
 {
@@ -14,6 +15,9 @@ public class InputController : NetworkBehaviour
     NetworkVariable<float> _speed = new NetworkVariable<float>();
     NetworkVariable<float> _rotSpeed = new NetworkVariable<float>();
 
+    // Campo para el texto de la UI que muestra la velocidad
+    private TextMeshProUGUI speedText;
+
 
     private void Start()
     {
@@ -23,18 +27,24 @@ public class InputController : NetworkBehaviour
         if (IsOwner)
         {
             GetComponent<PlayerInput>().enabled = true;
+            speedText = GameObject.Find("SpeedText").GetComponent<TextMeshProUGUI>();
         }
 
         //si cambia llamamos al evento
         _speed.OnValueChanged += OnSpeedChanged;
         _rotSpeed.OnValueChanged += OnRotSpeedChanged;
+
+        
     }
 
     //eventos que aplican los nuevos valores
     private void OnSpeedChanged(float previousValue, float newValue)
     {
-        if (IsServer) return;
+        //if (IsServer) return;
         _speed.Value = car._currentSpeed;
+
+        // Actualizar la UI con la nueva velocidad
+        UpdateSpeedUI(_speed.Value);
     }
     private void OnRotSpeedChanged(float previousValue, float newValue)
     {
@@ -50,6 +60,10 @@ public class InputController : NetworkBehaviour
         //como car tambien tiene un network transform, al  notar este cambio en el servidor, se actualiza en todos los clientes
         car.InputAcceleration = _movement.y;
         car.InputSteering = _movement.x;
+
+        // Actualizar variables de red en el servidor
+        _speed.Value = car._currentSpeed;
+        _rotSpeed.Value = car.maxSteeringAngle;
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -74,6 +88,7 @@ public class InputController : NetworkBehaviour
         _movement = input;
         car.InputAcceleration = _movement.y;
         car.InputSteering = _movement.x;
+        // Actualizar variables de red en el servidor
         _speed.Value = car._currentSpeed;
         _rotSpeed.Value = car.maxSteeringAngle;
     }
@@ -86,5 +101,14 @@ public class InputController : NetworkBehaviour
     }
     public void OnAttack(InputAction.CallbackContext context)
     {
+    }
+
+    // Método para actualizar el texto de la UI con la velocidad actual
+    private void UpdateSpeedUI(float speed)
+    {
+        if (speedText != null)
+        {
+            speedText.text = $"Speed: {speed:F2}";  // Actualiza el texto con la velocidad formateada
+        }
     }
 }
