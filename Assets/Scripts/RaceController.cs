@@ -3,11 +3,30 @@ using UnityEngine;
 
 public class RaceController : MonoBehaviour
 {
+
+    public static RaceController Instance;
+
+    public int totalLaps = 3;
     public int numPlayers;
 
     private readonly List<Player> _players = new(4);
     private CircuitController _circuitController;
     private GameObject[] _debuggingSpheres;
+
+    public delegate void RaceFinishedHandler();
+    public event RaceFinishedHandler OnRaceFinished;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -27,6 +46,7 @@ public class RaceController : MonoBehaviour
             return;
 
         UpdateRaceProgress();
+        CheckPlayersCompletion();
     }
 
     public void AddPlayer(Player player)
@@ -97,5 +117,26 @@ public class RaceController : MonoBehaviour
         }
 
         return minArcL;
+    }
+
+    private void CheckPlayersCompletion()
+    {
+        bool allPlayersFinished = true;
+
+        foreach (var player in _players)
+        {
+            if (player.CurrentLap <= totalLaps)
+            {
+                allPlayersFinished = false;
+                break;
+            }
+        }
+
+        if (allPlayersFinished)
+        {
+            Debug.Log("All players finished!");
+            OnRaceFinished?.Invoke();
+            // Aquí puedes llamar a un método para finalizar la carrera, mostrar los resultados, etc.
+        }
     }
 }
