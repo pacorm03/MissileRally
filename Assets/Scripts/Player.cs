@@ -3,6 +3,8 @@ using Unity.Netcode;
 using Cinemachine;
 using TMPro;
 using System.Collections.Generic;
+using System.Threading;
+using System.Collections;
 
 
 public class Player : NetworkBehaviour
@@ -50,6 +52,11 @@ public class Player : NetworkBehaviour
     public float TotalTime { get; private set; }
     private List<float> lapTimes = new List<float>();
 
+    GameObject semaphore;
+    private float initialFOV = 60f;
+    private float wideFOV = 90f;
+    private float transitionDuration = 1f;
+
     private void Start()
     {
         // Initialize lap counter
@@ -72,12 +79,16 @@ public class Player : NetworkBehaviour
         // Aparecer en la carrera
         GameManager.Instance.currentRace.AddPlayer(this);
 
-        // Asignar la camara al coche del jugador
+        // Asignar la cámara al coche del jugador inicialmente
         if (IsOwner)
         {
             virtualCamera.Follow = car.transform;
             virtualCamera.LookAt = car.transform;
             virtualCamera.Priority = 10;
+            virtualCamera.m_Lens.FieldOfView = wideFOV;
+
+            // Escuchar el evento del inicio de la carrera
+            GameManager.Instance.OnRaceStart += HandleRaceStart;
         }
         else
         {
@@ -92,9 +103,26 @@ public class Player : NetworkBehaviour
         UpdateLapCounter();
     }
 
+    private void HandleRaceStart()
+    {
+        StartCoroutine(TransitionToNormalFOV());
+    }
+
+    private IEnumerator TransitionToNormalFOV()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < transitionDuration)
+        {
+            virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(wideFOV, initialFOV, elapsedTime / transitionDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        virtualCamera.m_Lens.FieldOfView = initialFOV;
+    }
+
     private void Update()
     {
-        if (CurrentLap > 0)
+        if (IsOwner && CurrentLap > 0)
         {
             // Update lap time
             float currentLapTime = Time.time - lapStartTime;
@@ -108,7 +136,7 @@ public class Player : NetworkBehaviour
 
     private void UpdateLapCounter()
     {
-        if (lapCounterText != null)
+        if (lapCounterText != null && IsOwner)
         {
             lapCounterText.text = "Lap: " + CurrentLap;
         }

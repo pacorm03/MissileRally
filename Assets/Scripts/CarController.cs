@@ -21,7 +21,9 @@ public class CarController : MonoBehaviour
     public float InputSteering { get; set; }
     public float InputBrake { get; set; }
 
-  
+
+    // Flag para permitir o no que los coches se muevan
+    private bool controlsEnabled = false;
 
     private Rigidbody _rigidbody;
     private float _steerHelper = 0.8f;
@@ -61,7 +63,9 @@ public class CarController : MonoBehaviour
     }
 
     public void FixedUpdate()
-    {   //metodos para como conducir
+    {  // If controls are not enabled, do nothing
+        if (!controlsEnabled) return;
+        //metodos para como conducir
         InputSteering = Mathf.Clamp(InputSteering, -1, 1);
         InputAcceleration = Mathf.Clamp(InputAcceleration, -1, 1);
         InputBrake = Mathf.Clamp(InputBrake, 0, 1);
@@ -122,6 +126,12 @@ public class CarController : MonoBehaviour
     #endregion
 
     #region Methods
+
+    //Metodo para poder mover el coche
+    public void EnableCarControls()
+    {
+        controlsEnabled = true;
+    }
 
     // crude traction control that reduces the power to wheel if the car is wheel spinning too much
     private void TractionControl()

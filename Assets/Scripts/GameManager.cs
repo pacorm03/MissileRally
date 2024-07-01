@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     private List<Vector3> spawnPositions = new List<Vector3>();
 
+    public delegate void RaceStartHandler();
+    public event RaceStartHandler OnRaceStart;
+
     void Awake()
     {
         if (Instance == null)
@@ -73,6 +76,29 @@ public class GameManager : MonoBehaviour
             Player playerScript = networkClient.PlayerObject.GetComponent<Player>();
             playerScript.spawnPosition.Value = spawnPosition;
             playerScript.transform.position = spawnPosition;
+        }
+    }
+
+    public void StartRace()
+    {
+        Debug.Log("Race started!");
+        OnRaceStart?.Invoke();
+        EnableAllCarControls();
+    }
+
+    private void EnableAllCarControls()
+    {
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            var playerObject = client.PlayerObject;
+            if (playerObject != null)
+            {
+                var carController = playerObject.GetComponentInChildren<CarController>();
+                if (carController != null)
+                {
+                    carController.EnableCarControls();
+                }
+            }
         }
     }
 }
