@@ -10,9 +10,12 @@ public class InputController : NetworkBehaviour
     Vector2 _movement;
     float _brake;
 
+
+
     //variables qde red que se actualizaran en todos los clientes cuando cambien
     NetworkVariable<float> _speed = new NetworkVariable<float>();
     NetworkVariable<float> _rotSpeed = new NetworkVariable<float>();
+
 
 
     private void Start()
@@ -25,9 +28,11 @@ public class InputController : NetworkBehaviour
             GetComponent<PlayerInput>().enabled = true;
         }
 
+
         //si cambia llamamos al evento
         _speed.OnValueChanged += OnSpeedChanged;
         _rotSpeed.OnValueChanged += OnRotSpeedChanged;
+
     }
 
     //eventos que aplican los nuevos valores
@@ -41,7 +46,7 @@ public class InputController : NetworkBehaviour
         if (IsServer) return;
         _rotSpeed.Value = car.maxSteeringAngle;
     }
-    
+
     private void FixedUpdate()
     {
         //Procesar movimientos en el servidor
@@ -50,7 +55,11 @@ public class InputController : NetworkBehaviour
         //como car tambien tiene un network transform, al  notar este cambio en el servidor, se actualiza en todos los clientes
         car.InputAcceleration = _movement.y;
         car.InputSteering = _movement.x;
+
     }
+
+
+
     public void OnMove(InputAction.CallbackContext context)
     {
         if (!IsOwner) ;
@@ -59,6 +68,8 @@ public class InputController : NetworkBehaviour
         onMoveServerRpc(_movement);
         
     }
+
+
 
     public void OnBrake(InputAction.CallbackContext context)
     {
